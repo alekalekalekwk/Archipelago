@@ -18,6 +18,19 @@ final class IslandWindowController: NSWindowController {
         panel.contentView = hosting.view
         panel.setFrame(frame, display: true)
         self.hostingController = hosting
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(screenParametersDidChange),
+            name: NSApplication.didChangeScreenParametersNotification,
+            object: nil
+        )
+    }
+
+    @objc private func screenParametersDidChange() {
+        guard let window = self.window else { return }
+        let frame = IslandWindowController.calculateFrame(for: window.frame.size)
+        window.setFrame(frame, display: true)
     }
 
     private static func calculateFrame(for size: CGSize) -> NSRect {
@@ -29,5 +42,9 @@ final class IslandWindowController: NSWindowController {
         let x = screenFrame.minX + (screenFrame.width - size.width) / 2
         let y = visibleFrame.maxY - size.height - IslandMetrics.topMargin
         return NSRect(x: x, y: y, width: size.width, height: size.height)
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
