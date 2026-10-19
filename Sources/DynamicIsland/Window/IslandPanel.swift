@@ -8,7 +8,8 @@ final class IslandPanel: NSPanel {
             backing: .buffered,
             defer: false
         )
-        self.level = .statusBar
+        // Level above menu bar
+        self.level = NSWindow.Level(Int(CGWindowLevelForKey(.mainMenuWindow)) + 3)
         self.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary, .stationary]
         self.isOpaque = false
         self.backgroundColor = .clear
