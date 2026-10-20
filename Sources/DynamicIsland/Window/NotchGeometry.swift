@@ -11,11 +11,13 @@ enum NotchGeometry {
         }
         
         let topInset = screen.safeAreaInsets.top
-        // Estimate width by looking at the gap between auxiliary areas if possible,
-        // but safeAreaInsets.top is the most reliable for height.
-        // For width, we'll use a standard notch width or calculate if APIs allow.
-        // ponytail: using fixed width for notch if detection fails.
-        return CGSize(width: 200, height: topInset)
+        if let leftArea = screen.auxiliaryTopLeftArea,
+           let rightArea = screen.auxiliaryTopRightArea {
+            let width = screen.frame.width - leftArea.width - rightArea.width
+            return CGSize(width: width, height: topInset)
+        }
+        
+        return IslandMetrics.virtualNotchSize
     }
 
     static func frameForCollapsed(on screen: NSScreen) -> NSRect {
