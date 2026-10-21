@@ -1,7 +1,10 @@
 import AppKit
 
 final class ScreenObserver {
-    init() {
+    var onScreenParametersChanged: (() -> Void)?
+
+    init(onChanged: (() -> Void)? = nil) {
+        self.onScreenParametersChanged = onChanged
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(screenDidChange),
@@ -9,13 +12,11 @@ final class ScreenObserver {
             object: nil
         )
     }
-    
+
     @objc private func screenDidChange() {
-        // Trigger recompute of panel frame via NotchGeometry; the window controller will redo layout on next access.
-        // Here we just post notification for any listeners.
-        NotificationCenter.default.post(name: Notification.Name("ArchipelagoScreenDidChange"), object: nil)
+        onScreenParametersChanged?()
     }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }

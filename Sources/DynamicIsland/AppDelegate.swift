@@ -3,10 +3,17 @@ import AppKit
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private var windowController: IslandWindowController?
     private var statusItem: NSStatusItem?
+    private var screenObserver: ScreenObserver?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        windowController = IslandWindowController()
-        windowController?.showWindow(nil)
+        let wc = IslandWindowController()
+        wc.showWindow(nil)
+        windowController = wc
+
+        screenObserver = ScreenObserver { [weak wc] in
+            wc?.updatePosition()
+        }
+
         setupStatusItem()
     }
 
@@ -16,7 +23,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             button.image = NSImage(systemSymbolName: "circle.fill", accessibilityDescription: "DynamicIsland")
         }
         let menu = NSMenu()
-        menu.addItem(NSMenuItem(title: "Quit DynamicIsland", action: #selector(quitApp), keyEquivalent: "q"))
+        menu.addItem(NSMenuItem(title: "Quit Archipelago", action: #selector(quitApp), keyEquivalent: "q"))
         statusItem?.menu = menu
     }
 

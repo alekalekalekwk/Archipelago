@@ -9,14 +9,22 @@ final class IslandWindowController: NSWindowController {
         let frame = NotchGeometry.frameForCollapsed(on: screen)
         let panel = IslandPanel(contentRect: frame)
         self.init(window: panel)
-        
+
         let rootView = IslandRootView()
         let hosting = IslandHostingController(rootView: rootView)
         hosting.sizingOptions = []
         hosting.view.frame = NSRect(origin: .zero, size: frame.size)
-        
+
         panel.contentView = hosting.view
         panel.setFrame(frame, display: true)
         self.hostingController = hosting
+    }
+
+    func updatePosition() {
+        guard let window = self.window,
+              let screen = NSScreen.main ?? NSScreen.screens.first else { return }
+        let frame = NotchGeometry.frameForCollapsed(on: screen)
+        window.setFrame(frame, display: true)
+        hostingController?.view.frame = NSRect(origin: .zero, size: frame.size)
     }
 }
