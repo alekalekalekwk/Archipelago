@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-APP_NAME="DynamicIsland"
+APP_NAME="Archipelago"
 APP_DIR="${APP_NAME}.app"
 
 swift build -c release

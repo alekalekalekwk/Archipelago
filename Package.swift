@@ -2,14 +2,18 @@
 import PackageDescription
 
 let package = Package(
-    name: "DynamicIsland",
+    name: "Archipelago",
     platforms: [
         .macOS(.v13)
     ],
+    products: [
+        .executable(name: "Archipelago", targets: ["Archipelago"])
+    ],
     targets: [
         .executableTarget(
-            name: "DynamicIsland",
-            dependencies: []
+            name: "Archipelago",
+            dependencies: [],
+            path: "Sources/Archipelago"
         )
     ]
 )

@@ -3,9 +3,13 @@
 <plist version="1.0">
 <dict>
     <key>CFBundleIdentifier</key>
-    <string>com.archipelago.DynamicIsland</string>
+    <string>com.archipelago.archipelago</string>
     <key>CFBundleName</key>
-    <string>DynamicIsland</string>
+    <string>Archipelago</string>
+    <key>CFBundleDisplayName</key>
+    <string>Archipelago</string>
+    <key>CFBundleExecutable</key>
+    <string>Archipelago</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>
@@ -15,6 +19,6 @@
     <key>LSUIElement</key>
     <true/>
     <key>NSAppleEventsUsageDescription</key>
-    <string>DynamicIsland requires Apple Events permission to display playback info and control media in Music and Spotify.</string>
+    <string>Archipelago requires Apple Events permission to display playback info and control media in Music and Spotify.</string>
 </dict>
 </plist>
